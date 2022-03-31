@@ -1,7 +1,17 @@
-<h1>Welcome to my shop !</h1>
+<%= stylesheet_link_tag "products_index"%>
 
-<div class="btn-group" role="group" aria-label="Basic example">
-  <button type="button" class="btn btn-primary">Left</button>
-  <button type="button" class="btn btn-primary">Middle</button>
-  <button type="button" class="btn btn-primary">Right</button>
+<div class="row row-cols-1 row-cols-md-4 g-4">
+  <% @products.each do |product| %>
+    <div class="col">
+      <a href="/products/<%= product.id %>" style="text-decoration: none;color: darkolivegreen;">
+        <div class="card" style="width: 15rem;border-radius: 16px;">
+          <img src="<%= product.photo %>" class="card-img-top" alt="product-image" style="border-radius: 16px 16px 0 0;">
+          <div class="card-body" style="text-align: center;">
+            <h5 class="card-title"><%= product.name %></h5>
+            <p class="card-text"><%= product.price %> RON</p>
+          </div>
+        </div>
+      </a>
+    </div>
+  <% end %>
 </div>
