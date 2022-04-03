@@ -1,0 +1,59 @@
+label {
+  font-weight: bold;
+}
+
+.fa-boxes-packing {
+  margin: 0 0 5px 260px;
+}
+
+.fa-boxes-packing:hover {
+  color: darkolivegreen;
+  transform: scale(1.1);
+}
+
+.fa-triangle-exclamation {
+  color: #ffc300;
+}
+
+.fa-triangle-exclamation:hover {
+  color: #ffc300;
+  transform: scale(1.04);
+}
+
+#submitBtn {
+  font-size: 15px;
+  padding: 10px;
+  margin-left: 140px;
+  border-radius: 8px;
+  border: 2px solid darkolivegreen;
+  color: darkolivegreen;
+}
+
+#submitBtn:hover {
+  color: whitesmoke;
+  background-color: darkolivegreen;
+  transform: scale(1.04);
+}
+
+#input_text {
+  width: 30vw;
+  font-size: 15px;
+  padding: 3px;
+  font-style: italic;
+}
+
+#input_text:focus {
+  border-color: darkolivegreen;
+}
+
+#addForm {
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+  background-color: #fbfefb;
+  border: 2px solid #cfdbd5;
+  border-radius: 8px;
+  padding: 10px;
+}
+
+#addForm:hover {
+  transform: scale(1.01);
+}

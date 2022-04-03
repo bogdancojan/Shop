@@ -1,14 +1,20 @@
+<%= stylesheet_link_tag "products_show"%>
+
 <div class="d-flex align-items-center justify-content-center">
   <div class="card mb-3" style="margin-top: 70px;max-width: 700px;border-radius: 16px;box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);">
     <div class="row g-0">
       <div class="col-md-4">
-        <img src="<%= @product.photo %>" class="img-fluid" alt="product-image" style="border-radius: 16px 0 0 16px;">
+        <img src="<%= @product.photo_url %>" class="img-fluid" alt="product-image" style="border-radius: 16px 0 0 16px;">
       </div>
       <div class="col-md-8">
         <div class="card-body" style="text-align: center;padding-top: 59px;">
           <h5 class="card-title"><%= @product.name %></h5>
           <p class="card-text"><%= @product.price %> RON</p>
-          <button type="button" class="btn btn-outline-success" id="addToCartBtn">Add to cart</button>
+          <button type="button" class="btn" id="addToCartBtn">Add to cart</button>
+          <div class="input-group" style="justify-content: center;padding-top: 20px;">
+            <span class="input-group-text">Quantity</span>
+            <input style="width: 40px;" type="number" id="quantity" name="quantity" value="1" min="1" max="10">
+          </div>
           <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
             <div id="addToCart" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
               <div class="toast-header">

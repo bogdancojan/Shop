@@ -1,0 +1,44 @@
+<%= stylesheet_link_tag "products_new"%>
+
+<div class="d-flex align-items-center justify-content-center" style="height: 60vh;margin-top: 65px;">
+  <form id="addForm" action="/products" accept-charset="UTF-8" method="post">
+    <input type="hidden" name="authenticity_token" value="...">
+
+    <i class="fa-solid fa-boxes-packing fa-5x" title="Just a box"></i>
+    
+    <div class="mb-3">
+      <label>Name</label><br>
+      <input type="text" name="product[name]" id="input_text">
+      <% @product.errors.full_messages_for(:name).each do |message| %>
+        <div class="form-text">
+          <i class="fa-solid fa-triangle-exclamation"></i>
+          <%= message %>
+        </div>
+      <% end %>
+    </div>
+
+    <div class="mb-3">
+      <label>Price (RON)</label><br>
+      <input type="text" name="product[price]" id="input_text">
+      <% @product.errors.full_messages_for(:price).each do |message| %>
+        <div class="form-text">
+          <i class="fa-solid fa-triangle-exclamation"></i>
+          <%= message %>
+        </div>
+      <% end %>
+    </div>
+
+    <div class="mb-3">
+      <label>Photo URL</label><br>
+      <input type="text" name="product[photo_url]" id="input_text">
+      <% @product.errors.full_messages_for(:photo_url).each do |message| %>
+        <div class="form-text">
+          <i class="fa-solid fa-triangle-exclamation"></i>
+          <%= message %>
+        </div>
+      <% end %>
+    </div>
+
+    <input id="submitBtn" type="submit" name="commit" value="Create product" data-disable-with="Create product">
+  </form>
+</div>

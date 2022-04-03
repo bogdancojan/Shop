@@ -1,0 +1,14 @@
+i:hover {
+  transform: scale(1.1);
+  color: darkolivegreen;
+}
+
+#logIn:hover {
+  transform: scale(1.1);
+}
+
+a {
+  color: black;
+  text-decoration: none;
+  padding-right: 2px;
+}

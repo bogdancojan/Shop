@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
+    <script src="https://kit.fontawesome.com/1fcf7f83a9.js" crossorigin="anonymous"></script>
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
@@ -12,7 +13,7 @@
 
   <body>
     <%= render "layouts/navbar" %>
-    <div class="container" style="padding: 25px">
+    <div class="container" style="padding: 25px;">
       <%= yield %>
     </div>
   </body>
