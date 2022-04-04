@@ -1,10 +1,13 @@
 i:hover {
   transform: scale(1.1);
-  color: darkolivegreen;
 }
 
 #logIn:hover {
   transform: scale(1.1);
+}
+
+#iconLink:hover {
+  color: darkolivegreen;
 }
 
 a {
