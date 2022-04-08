@@ -1,0 +1,66 @@
+<%= javascript_include_tag "cart" %>
+<%= stylesheet_link_tag "cart_show"%>
+
+<div id="container-background" class="container">
+  <% if @cart %>
+    <% total_price = 0 %>
+    <div id="container-products" class="container" style="width: fit-content;">
+      <div class="container d-flex" style="justify-content: space-around;align-items: center;">
+        <h1>My cart</h1>
+        <button type="button" class="btn" id="clearCartBtn">Delete cart</button>
+      </div>
+      <% @cart.each do |product, quantity| %>
+        <% total_price += product[0].price * quantity.to_i %>
+        <div class="card mb-3" style="max-width: 540px;">
+          <div class="row g-0">
+            <div class="col-md-4">
+              <img src="<%= product[0].photo_url %>" class="img-fluid rounded-start" alt="product-image">
+            </div>
+            <div class="col-md-8">
+              <div class="card-body">
+                <h5 class="card-title"><%= product[0].name %></h5>
+                <div class="container d-flex" style="margin-top: 20px;">
+                  <div class="container d-flex" style="width: fit-content;height: fit-content;justify-content: space-between;">
+                    <button type="button" class="btn btn-sm" id="">-</button>
+                    <p style="font-weight: bold;margin: 2px;"><%= quantity %></p>
+                    <button type="button" class="btn btn-sm" id="">+</button>
+                  </div>
+                  <p style="margin: 4px;font-weight: bold;color: darkolivegreen;font-size: 16px;"><%= (product[0].price * quantity.to_i).round(2) %> RON</p>
+                </div>
+                <a id="iconLinkDelete" href="#" style="float: right;margin: 10px;">
+                  <i class="fa-solid fa-trash-can-arrow-up fa-xl" title="Delete product"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+
+    <div id="container-checkout" class="container">
+      <!-- Checkout and voucher card -->
+      <div class="card text-center" style="heigth: fit-content;">
+        <div class="card-body">
+          <h5 class="card-title">Your order</h5>
+          <div class="container" style="display: flex; justify-content: space-evenly;margin-top: 20px;">
+            <p class="card-text"><small><b>Total price:</b></small></p>
+            <p style="font-weight: bold;color: darkolivegreen;font-size: 16px;"><%= total_price.round(2) %> RON</p>
+          </div>
+          <button type="button" class="btn" id="">Checkout</button>
+          <div style="margin-top: 20px;">
+            <input style="max-width: 75%;" id="voucher-input" placeholder="Voucher ?">
+            <button type="button" class="btn" id="">Apply</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% else %>
+    <h1>Your cart is empty !</h1>
+  <% end %>
+</div>
+
+<script>
+  document.getElementById('clearCartBtn').addEventListener('click', function () {
+    clear_cart()
+  })
+</script>

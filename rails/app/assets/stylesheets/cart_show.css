@@ -1,0 +1,45 @@
+#container-background {
+  display: flex;
+  height: fit-content;
+}
+
+#container-products {
+  display: flex;
+  flex-direction: column;
+}
+
+.btn {
+  height: fit-content;
+  border-radius: 8px;
+  border: 2px solid darkolivegreen;
+  color: darkolivegreen;
+}
+
+.btn:hover {
+  color: whitesmoke;
+  background-color: darkolivegreen;
+  transform: scale(1.04);
+}
+
+#container-checkout {
+  width: 40%;
+}
+
+.card:hover {
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+}
+
+#iconLinkDelete:hover {
+  color: #da1e37;
+}
+
+#voucher-input {
+  border-radius: 4px;
+  font-size: 15px;
+  padding: 3px;
+  font-style: italic;
+}
+
+#voucher-input:focus {
+  border-color: darkolivegreen;
+}
