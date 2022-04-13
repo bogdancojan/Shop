@@ -1,0 +1,26 @@
+<%= javascript_include_tag "cart" %>
+<%= stylesheet_link_tag "cart_show"%>
+
+<div class="card mb-3" style="max-width: 540px;">
+  <div class="row g-0">
+    <div class="col-md-4">
+      <img src="<%= product[0].photo_url %>" class="img-fluid rounded-start" alt="product-image">
+    </div>
+    <div class="col-md-8">
+      <div class="card-body">
+        <h5 class="card-title"><%= product[0].name %></h5>
+        <div class="container d-flex" style="margin-top: 20px;">
+          <div class="container d-flex" style="width: fit-content;height: fit-content;justify-content: space-between;">
+            <button onclick="sub_quantity('<%= product[0].barcode %>')" type="button" class="btn btn-sm">-</button>
+            <p style="font-weight: bold;margin: 2px;"><%= quantity %></p>
+            <button onclick="add_quantity('<%= product[0].barcode %>')" type="button" class="btn btn-sm">+</button>
+          </div>
+          <p style="margin: 4px;font-weight: bold;color: darkolivegreen;font-size: 16px;"><%= number_with_delimiter((product[0].price * quantity.to_i).round(2), :delimiter => ',') %> RON</p>
+        </div>
+        <button id="iconBtnDelete" onclick="delete_product('<%= product[0].barcode %>')">
+          <i class="fa-solid fa-trash-can-arrow-up fa-xl" title="Delete product"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

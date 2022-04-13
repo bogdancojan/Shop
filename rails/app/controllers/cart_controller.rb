@@ -1,9 +1,9 @@
 class CartController < ApplicationController
-  skip_before_action :verify_authenticity_token # delete this and resolve the error
+  skip_before_action :verify_authenticity_token
 
   def update
     session[:cart] ||= {}
-    session[:cart][cart_params[:barcode]] = cart_params[:quantity]
+    session[:cart][cart_params[:barcode]] = cart_params[:quantity].to_i
   end
 
   def show
@@ -21,7 +21,23 @@ class CartController < ApplicationController
   end
 
   def destroy
-    session[:cart] = nil
+    session[:cart] = {}
+  end
+
+  def delete_product
+    session[:cart].delete(cart_params[:barcode])
+  end
+
+  def sub_quantity
+    if session[:cart][cart_params[:barcode]] > 1 
+      session[:cart][cart_params[:barcode]] -= 1
+    end
+  end
+
+  def add_quantity
+    if session[:cart][cart_params[:barcode]] < 5
+      session[:cart][cart_params[:barcode]] += 1
+    end
   end
 
   private

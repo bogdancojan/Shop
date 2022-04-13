@@ -5,4 +5,7 @@ Rails.application.routes.draw do
   
   resource :cart, controller: "cart" , only: [:show, :update, :destroy]
   resolve("Cart") { route_for(:cart) }
+  delete "/cart/product" => "cart#delete_product"
+  patch "/cart/quantity/sub" => "cart#sub_quantity"
+  patch "/cart/quantity/add" => "cart#add_quantity"
 end

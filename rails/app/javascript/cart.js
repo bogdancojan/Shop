@@ -16,3 +16,39 @@ function clear_cart() {
     window.location.reload();
   });
 }
+
+function delete_product(barcode) {
+  let data = { barcode: barcode };
+
+  fetch("http://localhost:3000/cart/product", {
+    method: "DELETE",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+  }).then(() => {
+    window.location.reload();
+  });
+}
+
+function sub_quantity(barcode) {
+  let data = { barcode: barcode };
+
+  fetch("http://localhost:3000/cart/quantity/sub", {
+    method: "PATCH",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+  }).then(() => {
+    window.location.reload();
+  });
+}
+
+function add_quantity(barcode) {
+  let data = { barcode: barcode };
+
+  fetch("http://localhost:3000/cart/quantity/add", {
+    method: "PATCH",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+  }).then(() => {
+    window.location.reload();
+  });
+}
