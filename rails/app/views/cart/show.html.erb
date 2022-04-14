@@ -10,7 +10,7 @@
         <button onclick="clear_cart()" type="button" class="btn">Delete cart</button>
       </div>
       <% @cart.each do |product, quantity| %>
-        <% total_price += product[0].price * quantity.to_i %>
+        <% total_price += product[0].price * quantity %>
         <%= render "product", product: product, quantity: quantity %>
       <% end %>
     </div>
@@ -25,17 +25,23 @@
               <p class="card-text" style="padding-right: 10px;"><small><b>Total price:</b></small></p>
               <p style="font-weight: bold;color: darkolivegreen;font-size: 16px;"><%= number_with_delimiter(total_price.round(2), :delimiter => ',') %> RON</p>
             </div>
-            <div class="container" style="display: flex;justify-content: center;" >
-              <!-- The discount percentage -->
-            </div>
-            <div class="container" style="display: flex;justify-content: center;" >
-              <!-- Final price after applying the discount -->
-            </div>
+            <% if @discount %>
+              <div class="container" style="display: flex;justify-content: center;" >
+                <p class="card-text" style="padding-right: 10px;"><small><b>Discount:</b></small></p>
+                <p style="font-weight: bold;color: darkolivegreen;font-size: 16px;"><%= @discount %> %</p>
+              </div>
+              <div class="container" style="display: flex;justify-content: center;" >
+                <p class="card-text" style="padding-right: 10px;"><small><b>Final price:</b></small></p>
+                <% cut = (@discount * total_price) / 100 %>
+                <% final_price = total_price - cut %>
+                <p style="font-weight: bold;color: darkolivegreen;font-size: 16px;"><%= number_with_delimiter(final_price.round(2), :delimiter => ',') %> RON</p>
+              </div>
+            <% end %>
           </div>
           <button type="button" class="btn" id="">Checkout</button>
           <div style="margin-top: 20px;">
             <input style="max-width: 75%;" id="voucher-input" placeholder="Voucher ?">
-            <button onclick="" type="button" class="btn">Apply</button>
+            <button onclick="apply_discount(document.getElementById('voucher-input').value)" type="button" class="btn">Apply</button>
           </div>
         </div>
       </div>

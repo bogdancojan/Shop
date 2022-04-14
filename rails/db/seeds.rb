@@ -73,3 +73,11 @@ Product.create([
     photo_url: "https://lcdn.altex.ro/resize/media/catalog/product/r/e/2bd48d28d1c32adea0e55139a4e6434a/res_02adc651999290fceb66bf4a662da33e_full_990a0fab.jpg"
   }
 ])
+
+# Discounts
+Discount.create([
+  {
+    code: "EASTER22",
+    percentage: 45
+  }
+])

@@ -1,6 +1,4 @@
 class CartController < ApplicationController
-  skip_before_action :verify_authenticity_token
-
   def update
     session[:cart] ||= {}
     session[:cart][cart_params[:barcode]] = cart_params[:quantity].to_i
@@ -8,6 +6,12 @@ class CartController < ApplicationController
 
   def show
     if session[:cart]
+      if session[:discount]
+        @discount = session[:discount]
+        
+        session.delete(:discount)
+      end
+
       @cart ||= {}
       session[:cart].each do |barcode, quantity|
         pair = []
