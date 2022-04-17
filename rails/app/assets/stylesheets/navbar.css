@@ -15,3 +15,7 @@ a {
   text-decoration: none;
   padding-right: 2px;
 }
+
+#logOut:hover {
+  transform: scale(1.1);
+}

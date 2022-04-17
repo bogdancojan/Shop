@@ -1,0 +1,27 @@
+<%= stylesheet_link_tag "devise_pass_new"%>
+
+<div class="d-flex flex-column align-items-center justify-content-center" style="height: 60vh;margin-top: 65px;">
+  <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post, id: "form" }) do |f| %>
+    <%= render "devise/shared/error_messages", resource: resource %>
+
+    <h2>Forgot your password?</h2>
+
+    <div class="field mb-3">
+      <%= f.label :email %><br />
+      <%= f.email_field :email, autofocus: true, autocomplete: "email", id: "email_input" %>
+    </div>
+
+    <div class="actions mb-3">
+      <%= f.submit "Send me reset password instructions", class: 'btn' %>
+    </div>
+    
+    <div style="display: flex;align-items: center;justify-content: space-evenly;margin-bottom: 10px;">
+      <%= link_to new_user_session_path do %>
+        <button type="button" class="btn">Log in</button>
+      <% end %>
+      <%= link_to new_user_registration_path do %>
+        <button type="button" class="btn">Sign up</button>
+      <% end %>
+    </div>
+  <% end %>
+</div>

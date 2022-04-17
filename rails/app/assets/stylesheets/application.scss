@@ -1,1 +1,11 @@
 @import "bootstrap";
+
+.gravatar {
+  height: 30px;
+  width: auto;
+  padding-right: 7px;
+}
+
+.gravatar:hover {
+  transform: scale(1.1);
+}

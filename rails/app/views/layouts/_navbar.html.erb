@@ -6,16 +6,28 @@
       <a href="/" id="iconLink">
         <i class="fa-solid fa-store fa-xl" title="Home"></i>
       </a>
-      <a href="<%= new_product_url %>" id="iconLink">
-        <i class="fa-solid fa-circle-plus" title="Add product"></i>
-      </a>
+      <% if current_user && current_user.admin == true %>
+        <a href="<%= new_product_url %>" id="iconLink">
+          <i class="fa-solid fa-circle-plus" title="Add product"></i>
+        </a>
+      <% end %>
     </div>
     <span style="color:darkolivegreen;font-weight:bold;font-size: 24px;">Bazar</span>
     <div class="d-flex" style="align-items: center;">
       <a href="<%= cart_url %>" style="padding-right: 20px;" id="iconLink">
         <i class="fa-solid fa-cart-shopping fa-xl" title="Cart"></i>
       </a>
-      <a id="logIn" href="#" style="font-size: 20px;color: darkolivegreen;padding-right: 10px;"><b>Log in</b></a>
+      <% if user_signed_in? %>
+        <%= link_to edit_user_registration_path do %> 
+          <%= image_tag current_user.gravatar_url, :class => "gravatar", :title => current_user.email %>
+        <% end %>
+        <%= link_to "Log out", destroy_user_session_path, method: :delete, :class => 'navbar-link', 
+          :style => "font-weight: bold;font-size: 20px;color: darkolivegreen;padding-right: 10px;",
+          :id => "logOut"
+        %>
+      <% else %>
+        <a id="logIn" href="<%= new_user_session_path %>" style="font-size: 20px;color: darkolivegreen;padding-right: 10px;"><b>Log in</b></a>
+      <% end %>
     </div>
   </div>
 </nav>

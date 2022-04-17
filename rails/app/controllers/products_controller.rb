@@ -1,6 +1,8 @@
 require 'securerandom'
 
 class ProductsController < ApplicationController
+  before_action :check_admin, only: [:new]
+
   def index
     @products = Product.all
   end
@@ -27,5 +29,11 @@ class ProductsController < ApplicationController
   private
     def product_params
       params.require(:product).permit(:name, :price, :photo_url)
+    end
+
+    def check_admin
+      unless current_user && current_user.admin
+        redirect_to root_path, alert: "You don't have permission to add a new product !" 
+      end
     end
 end

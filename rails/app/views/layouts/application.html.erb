@@ -13,6 +13,14 @@
 
   <body>
     <%= render "layouts/navbar" %>
+
+    <% if notice %>
+      <p class="alert alert-success"><%= notice %></p>
+    <% end %>
+    <% if alert %>
+      <p class="alert alert-danger"><%= alert %></p>
+    <% end %>
+
     <div class="container" style="padding: 25px;">
       <%= yield %>
     </div>
