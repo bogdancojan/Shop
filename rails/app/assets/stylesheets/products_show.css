@@ -9,3 +9,14 @@
   background-color: darkolivegreen;
   transform: scale(1.04);
 }
+
+#deleteIcon {
+  position: absolute;
+  top: 30px;
+  right: 40px;
+}
+
+#deleteIcon:hover {
+  color: #da1e37;
+  cursor: pointer;
+}

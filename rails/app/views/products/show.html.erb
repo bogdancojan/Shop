@@ -9,6 +9,12 @@
       </div>
       <div class="col-md-8">
         <div class="card-body" style="text-align: center;padding-top: 59px;">
+          <% if user_signed_in? && current_user.admin %>
+            <%= link_to product_path(@product), data: { turbo_method: :delete } do %>
+              <i id="deleteIcon" class="fa-solid fa-delete-left fa-lg" title="Delete product"></i>
+            <% end %>
+          <% end %>
+
           <h5 class="card-title"><%= @product.name %></h5>
           <p class="card-text"><%= number_with_delimiter(@product.price, :delimiter => ',') %> RON</p>
 
@@ -46,7 +52,7 @@
 </div>
 
 <script>
-document.getElementById('addToCartBtn').addEventListener('click', function () {
+  document.getElementById('addToCartBtn').addEventListener('click', function () {
     var notification = new bootstrap.Toast(document.getElementById('addToCart'))
 
     notification.show()

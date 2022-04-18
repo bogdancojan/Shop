@@ -6,7 +6,7 @@
       <a href="/" id="iconLink">
         <i class="fa-solid fa-store fa-xl" title="Home"></i>
       </a>
-      <% if current_user && current_user.admin == true %>
+      <% if user_signed_in? && current_user.admin %>
         <a href="<%= new_product_url %>" id="iconLink">
           <i class="fa-solid fa-circle-plus" title="Add product"></i>
         </a>
