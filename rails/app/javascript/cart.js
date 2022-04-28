@@ -64,3 +64,30 @@ function apply_discount(code) {
     window.location.reload();
   });
 }
+
+function checkout(
+  products,
+  total_price,
+  discount = 0,
+  final_price = total_price
+) {
+  let data = {
+    products: products,
+    total_price: total_price,
+    discount: discount,
+    final_price: final_price,
+  };
+
+  fetch("http://localhost:3000/order", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+  }).then(function (response) {
+    if (response.status === 201) {
+      window.location.replace("/");
+    }
+    if (response.status === 200) {
+      window.location.replace("/users/sign_in");
+    }
+  });
+}

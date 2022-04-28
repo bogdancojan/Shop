@@ -1,6 +1,6 @@
 <%= stylesheet_link_tag "devise_pass_new"%>
 
-<div class="d-flex flex-column align-items-center justify-content-center" style="height: 60vh;margin-top: 65px;">
+<div class="d-flex flex-column align-items-center justify-content-center" style="height: 60vh;margin-top: 45px;">
   <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post, id: "form" }) do |f| %>
     <%= render "devise/shared/error_messages", resource: resource %>
 

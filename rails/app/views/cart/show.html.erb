@@ -10,7 +10,7 @@
         <button onclick="clear_cart()" type="button" class="btn">Delete cart</button>
       </div>
       <% @cart.each do |product, quantity| %>
-        <% total_price += product[0].price * quantity %>
+        <% total_price += product.price * quantity %>
         <%= render "product", product: product, quantity: quantity %>
       <% end %>
     </div>
@@ -38,7 +38,11 @@
               </div>
             <% end %>
           </div>
-          <button type="button" class="btn" id="">Checkout</button>
+          <% if @discount %>
+            <button onclick="checkout(<%= session[:cart].to_json %>, <%= total_price %>, <%= @discount %>, <%= final_price %>)" type="button" class="btn">Checkout</button>
+          <% else %>          <!-- [ ProductObject ] => quantity  -->
+            <button onclick="checkout(<%= session[:cart].to_json %>, <%= total_price %>)" type="button" class="btn">Checkout</button>
+          <% end %>
           <div style="margin-top: 20px;">
             <input style="max-width: 75%;" id="voucher-input" placeholder="Voucher ?">
             <button onclick="apply_discount(document.getElementById('voucher-input').value)" type="button" class="btn">Apply</button>

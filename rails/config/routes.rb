@@ -13,7 +13,11 @@ Rails.application.routes.draw do
   delete "/cart/product" => "cart#delete_product"
   patch "/cart/quantity/sub" => "cart#sub_quantity"
   patch "/cart/quantity/add" => "cart#add_quantity"
+  post "/cart/checkout" => "cart#checkout"
 
   resource :discount, only: :update
   resolve("Discount") { route_for(:discount) }
+
+  resource :order, only: :create
+  resolve("Order") { route_for(:order) }
 end

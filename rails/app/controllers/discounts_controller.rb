@@ -1,9 +1,9 @@
 class DiscountsController < ApplicationController
   def update
-    discount = Discount.where(code: discount_param[:code])
+    discount = Discount.find_by_code(discount_param[:code])
 
     if discount
-      session[:discount] = discount[0].percentage
+      session[:discount] = discount.percentage
     end
   end
 

@@ -14,9 +14,9 @@ class CartController < ApplicationController
 
       @cart ||= {}
       session[:cart].each do |barcode, quantity|
-        pair = []
-        product = Product.where(barcode: barcode)
-        pair.append([product, quantity])
+        pair = {}
+        product = Product.find_by_barcode(barcode)
+        pair[product] = quantity
         @cart.merge!(Hash[pair])
       end
 
