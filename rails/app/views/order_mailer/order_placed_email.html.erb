@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <p>Yay !! You got a new order <%= @order.user.email %>!</p>
+    <p>
+    Order details<br>
+    --------------------------
+    </p>
+    <% @order.products.each do |barcode, quantity| %>
+      <% product = Product.find_by_barcode(barcode) %>
+      <p><%= product.name %> x<%= quantity %> - <%= number_with_delimiter(product.price.round(2), :delimiter => ',') %> RON ..... <%= number_with_delimiter((product.price*quantity).round(2), :delimiter => ',') %> RON</p>
+    <% end %>
+    <p>
+    ---------------------------
+    </p>
+    <p>Total price: <%= number_with_delimiter(@order.total_price.round(2), :delimiter => ',') %> RON</p>
+    <p>Discount: <%= @order.discount %>%</p>
+    <p>Final price: <%= number_with_delimiter(@order.final_price.round(2), :delimiter => ',') %> RON</p>
+    <p>
+    ---------------------------
+    </p>
+    <p>Date: <%= Time.now.strftime("%d/%m/%Y %H:%M") %></p>
+  </body>
+</html>

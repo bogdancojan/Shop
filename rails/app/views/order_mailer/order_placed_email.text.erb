@@ -1,0 +1,14 @@
+  Yay !! You got a new order <%= @order.user.email %>!
+
+    Order details
+  --------------------------
+  <% @order.products.each do |barcode, quantity| %>
+    <% product = Product.find_by_barcode(barcode) %>
+    <%= product.name %> x<%= quantity %> - <%= number_with_delimiter(product.price.round(2), :delimiter => ',') %> RON ..... <%= number_with_delimiter((product.price*quantity).round(2), :delimiter => ',') %> RON
+  <% end %>
+  ---------------------------
+    Total price: <%= number_with_delimiter(@order.total_price.round(2), :delimiter => ',') %> RON
+    Discount: <%= @order.discount %>%
+    Final price: <%= number_with_delimiter(@order.final_price.round(2), :delimiter => ',') %> RON
+  ---------------------------
+    Date: <%= Time.now.strftime("%d/%m/%Y %H:%M") %>

@@ -5,6 +5,8 @@ class OrdersController < ApplicationController
       order.user_id = current_user.id
 
       if order.save
+        OrderMailer.with(order: order).order_placed_email.deliver_later
+
         flash[:notice] = 'Your order has been placed ! Check your email for the receipt !'
         flash.keep(:notice)
         session[:cart] = {}
