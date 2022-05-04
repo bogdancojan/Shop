@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-  has_many :orders
+  has_many :orders, dependent: :delete_all
 
   include Gravtastic
   gravtastic
