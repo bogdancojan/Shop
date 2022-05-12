@@ -1,8 +1,11 @@
+require 'securerandom'
+
 class OrdersController < ApplicationController
   def create
     if user_signed_in?
       order = Order.new(order_params)
       order.user_id = current_user.id
+      order.guid = SecureRandom.uuid
 
       if order.save
         OrderMailer.with(order: order).order_placed_email.deliver_later
