@@ -20,4 +20,12 @@ Rails.application.routes.draw do
 
   resource :order, only: :create
   resolve("Order") { route_for(:order) }
+
+  namespace :apis do
+    namespace :products do
+      namespace :v1 do
+        resources :products
+      end
+    end
+  end
 end
