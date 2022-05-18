@@ -2,9 +2,9 @@
   <nav class="navbar navbar-light bg-light" style="margin-bottom: 25px">
     <div class="container-fluid">
       <div class="navbar-brand" style="margin-left: 5px">
-        <a href="/" id="iconLink">
+        <router-link id="link" :to="{ name: 'Home' }">
           <i class="fa-solid fa-store fa-xl" title="Home"></i>
-        </a>
+        </router-link>
       </div>
       <span style="color: darkolivegreen; font-weight: bold; font-size: 24px"
         >Bazar</span
@@ -32,6 +32,10 @@
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+}
+
+#link:hover {
+  color: darkolivegreen;
 }
 
 i:hover {

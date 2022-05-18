@@ -7,6 +7,15 @@ class Apis::Products::V1::ProductsController < ApplicationController
     render json: @products
   end
 
+  def destroy
+    @product = Product.find(params[:id])
+    @product.destroy
+
+    if @product.destroyed?
+      head 200
+    end
+  end
+
   private
   def get_formated_product(product)
     formatted_product = {
