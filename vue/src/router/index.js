@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 import Home from "@/views/Home.vue";
 import NotFound from "@/views/NotFound.vue";
+import NewProduct from "@/views/NewProduct.vue";
 
 const routes = [
   {
@@ -13,6 +14,11 @@ const routes = [
     name: "ProductPage",
     component: () => import("@/components/ProductFetch.vue"),
     props: true,
+  },
+  {
+    path: "/products/new",
+    name: "NewProduct",
+    component: NewProduct,
   },
   {
     path: "/:catchAll(.*)",

@@ -5,6 +5,13 @@
         <router-link id="link" :to="{ name: 'Home' }">
           <i class="fa-solid fa-store fa-xl" title="Home"></i>
         </router-link>
+        <router-link
+          style="padding-left: 5px"
+          id="link"
+          :to="{ name: 'NewProduct' }"
+        >
+          <i class="fa-solid fa-circle-plus" title="Add product"></i>
+        </router-link>
       </div>
       <span style="color: darkolivegreen; font-weight: bold; font-size: 24px"
         >Bazar</span

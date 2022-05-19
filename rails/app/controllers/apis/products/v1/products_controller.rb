@@ -7,6 +7,18 @@ class Apis::Products::V1::ProductsController < ApplicationController
     render json: @products
   end
 
+  def new
+    @product = Product.new
+  end
+
+  def create
+    @product = Product.new(product_params)
+
+    if @product.save
+      head 200
+    end
+  end
+
   def destroy
     @product = Product.find(params[:id])
     @product.destroy
@@ -25,5 +37,9 @@ class Apis::Products::V1::ProductsController < ApplicationController
       barcode: product.barcode,
       photo_url: product.photo_url
     }
+  end
+
+  def product_params
+    params.require(:product).permit(:name, :price, :photo_url)
   end
 end
