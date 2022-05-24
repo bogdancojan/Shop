@@ -21,12 +21,17 @@
         <%= link_to edit_user_registration_path do %> 
           <%= image_tag current_user.gravatar_url, :class => "gravatar", :title => current_user.email %>
         <% end %>
+        <%= link_to "Orders", orders_path, :class => 'navbar-link', 
+          :style => "font-weight: bold;font-size: 20px;color: darkolivegreen;padding-right: 10px;",
+          :id => "textLink"
+        %>
+        <b style="margin-right: 7px;">|</b>
         <%= link_to "Log out", destroy_user_session_path, method: :delete, :class => 'navbar-link', 
           :style => "font-weight: bold;font-size: 20px;color: darkolivegreen;padding-right: 10px;",
-          :id => "logOut"
+          :id => "textLink"
         %>
       <% else %>
-        <a id="logIn" href="<%= new_user_session_path %>" style="font-size: 20px;color: darkolivegreen;padding-right: 10px;"><b>Log in</b></a>
+        <a id="textLink" href="<%= new_user_session_path %>" style="font-size: 20px;color: darkolivegreen;padding-right: 10px;"><b>Log in</b></a>
       <% end %>
     </div>
   </div>

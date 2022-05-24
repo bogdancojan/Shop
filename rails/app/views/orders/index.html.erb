@@ -1,0 +1,24 @@
+<%= stylesheet_link_tag "orders_index"%>
+
+<% if @orders.empty? %>
+  <h1 style="margin-bottom: 20px;">You don't have any orders !</h1>
+  <%= link_to root_path do %>
+    <button type="button" class="btn">Continue Shopping</button>
+  <% end %>
+<% else %>
+  <div class="d-flex flex-column align-items-center justify-content-center">
+    <h1 style="margin-bottom: 20px;">Your orders</h1>
+    <ul class="list-group">
+      <% @orders.each do |order| %>
+        <%= link_to order_path(order) do %>
+          <li class="list-group-item d-flex justify-content-between align-items-start">
+            <div class="ms-2 me-auto">
+              <div class="fw-bold">ID: <%= order.id %></div>
+            </div>
+            <span class="badge rounded-pill" style="background-color: darkolivegreen;"><%= number_with_delimiter((order.final_price).round(2), :delimiter => ',') %> RON</span>
+          </li>
+        <% end %>
+      <% end %>
+    </ul>
+  </div>
+<% end %>

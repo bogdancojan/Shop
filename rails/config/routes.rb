@@ -18,8 +18,7 @@ Rails.application.routes.draw do
   resource :discount, only: :update
   resolve("Discount") { route_for(:discount) }
 
-  resource :order, only: :create
-  resolve("Order") { route_for(:order) }
+  resources :orders, only: [:create, :index, :show]
 
   namespace :apis do
     namespace :products do

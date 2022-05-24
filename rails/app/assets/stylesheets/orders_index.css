@@ -1,0 +1,22 @@
+.btn {
+  border-radius: 8px;
+  border: 2px solid darkolivegreen;
+  color: darkolivegreen;
+}
+
+.btn:hover {
+  color: whitesmoke;
+  background-color: darkolivegreen;
+  transform: scale(1.04);
+}
+
+li {
+  margin: 10px auto;
+  width: 40vw;
+  font-size: 20px;
+}
+
+li:hover {
+  transform: scale(1.02);
+  border: 2px solid darkolivegreen;
+}

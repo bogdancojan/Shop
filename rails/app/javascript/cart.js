@@ -78,7 +78,7 @@ function checkout(
     final_price: final_price,
   };
 
-  fetch("http://localhost:3000/order", {
+  fetch("http://localhost:3000/orders", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data),

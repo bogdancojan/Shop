@@ -40,7 +40,7 @@
           </div>
           <% if @discount %>
             <button onclick="checkout(<%= session[:cart].to_json %>, <%= total_price %>, <%= @discount %>, <%= final_price %>)" type="button" class="btn">Checkout</button>
-          <% else %>          <!-- [ ProductObject ] => quantity  -->
+          <% else %>
             <button onclick="checkout(<%= session[:cart].to_json %>, <%= total_price %>)" type="button" class="btn">Checkout</button>
           <% end %>
           <div style="margin-top: 20px;">
@@ -51,6 +51,11 @@
       </div>
     </div>
   <% else %>
-    <h1>Your cart is empty !</h1>
+    <div>
+      <h1 style="margin-bottom: 20px;">Your cart is empty !</h1>
+      <%= link_to root_path do %>
+        <button type="button" class="btn">Continue Shopping</button>
+      <% end %>
+    </div>
   <% end %>
 </div>

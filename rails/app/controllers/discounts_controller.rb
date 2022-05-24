@@ -4,6 +4,8 @@ class DiscountsController < ApplicationController
 
     if discount
       session[:discount] = discount.percentage
+    else
+      flash[:alert] = 'The discount code is incorrect !'
     end
   end
 

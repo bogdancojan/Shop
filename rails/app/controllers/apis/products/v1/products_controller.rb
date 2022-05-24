@@ -1,3 +1,5 @@
+require 'securerandom'
+
 class Apis::Products::V1::ProductsController < ApplicationController
   def index
     @products = []
@@ -13,6 +15,7 @@ class Apis::Products::V1::ProductsController < ApplicationController
 
   def create
     @product = Product.new(product_params)
+    @product.barcode = SecureRandom.alphanumeric(6)
 
     if @product.save
       head 200

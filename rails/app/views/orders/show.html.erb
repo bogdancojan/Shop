@@ -1,0 +1,19 @@
+<%= stylesheet_link_tag "orders_show"%>
+
+<div class="d-flex align-items-center justify-content-center">
+  <div class="container" id="infoCardOrder">
+    <h1>Order #<%= @order.id %></h1>
+    <p>Your order unique id is: <span style="font-style: italic;"><%= @order.guid %></span></p>
+    <p>Order details</p>
+    <p>--------------------------------------------------------------------------------</p>
+    <% @order_products.each do |product, quantity| %>
+      <p style="font-style: italic;"><%= product.name %> <span style="font-weight: bold;">x<%= quantity %> - <%= number_with_delimiter(product.price.round(2), :delimiter => ',') %> RON</span> ..... <%= number_with_delimiter((product.price*quantity).round(2), :delimiter => ',') %> RON</p>
+    <% end %>
+    <p>--------------------------------------------------------------------------------</p>
+    <p>Total price: <%= number_with_delimiter(@order.total_price.round(2), :delimiter => ',') %> RON</p>
+    <p>Discount: <%= @order.discount %>%</p>
+    <p style="font-weight: bold;">Final price: <%= number_with_delimiter(@order.final_price.round(2), :delimiter => ',') %> RON</p>
+    <p>--------------------------------------------------------------------------------</p>
+    <p>Date: <span style="font-style: italic;"><%= @order.created_at.strftime("%d-%B-%Y %H:%M") %></span></p>
+  </div>
+</div>

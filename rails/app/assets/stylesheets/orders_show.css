@@ -1,0 +1,14 @@
+#infoCardOrder {
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+  background-color: #fbfefb;
+  border: 2px solid #cfdbd5;
+  border-radius: 8px;
+  padding: 10px;
+  width: 40vw;
+  font-family: "Times New Roman", Times, serif;
+  font-size: 18px;
+}
+
+#infoCardOrder:hover {
+  transform: scale(1.01);
+}

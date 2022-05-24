@@ -2,10 +2,6 @@ i:hover {
   transform: scale(1.1);
 }
 
-#logIn:hover {
-  transform: scale(1.1);
-}
-
 #iconLink:hover {
   color: darkolivegreen;
 }
@@ -16,6 +12,6 @@ a {
   padding-right: 2px;
 }
 
-#logOut:hover {
+#textLink:hover {
   transform: scale(1.1);
 }
