@@ -26,5 +26,11 @@ Rails.application.routes.draw do
         resources :products
       end
     end
+    namespace :cart do
+      namespace :v1 do
+        resource :cart, controller: "cart", only: [:create, :show]
+        resource :discounts, controller: "discounts", only: [:update]
+      end
+    end
   end
 end

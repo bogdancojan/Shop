@@ -28,7 +28,7 @@
             </p>
 
             <button
-              @click="renderNotification"
+              @click="addToCart"
               type="button"
               class="btn"
               id="addToCartBtn"
@@ -44,6 +44,7 @@
                 class="form-select"
                 style="max-width: 60px"
                 id="quantity_drop_down"
+                v-model="quantity"
               >
                 <option value="1">1</option>
                 <option value="2">2</option>
@@ -106,20 +107,35 @@ export default {
   props: {
     product: Object,
   },
+  data() {
+    return {
+      quantity: 1,
+    };
+  },
   methods: {
-    renderNotification() {
-      var notification = new bootstrap.Toast(
-        document.getElementById("notification")
-      );
-      notification.show();
-    },
-
     async deleteProduct() {
       const res = await axios.delete(
         "http://localhost:3000/apis/products/v1/products/" + this.product.id
       );
       if (res.status == 200) {
         this.$router.replace({ name: "Home" });
+      }
+    },
+
+    async addToCart() {
+      var notification = new bootstrap.Toast(
+        document.getElementById("notification")
+      );
+
+      sessionStorage.setItem(this.product.barcode, this.quantity);
+
+      const res = await axios.post(
+        "http://localhost:3000/apis/cart/v1/cart",
+        sessionStorage
+      );
+
+      if (res.status == 204) {
+        notification.show();
       }
     },
   },

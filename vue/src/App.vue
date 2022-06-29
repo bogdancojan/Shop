@@ -17,9 +17,13 @@
         >Bazar</span
       >
       <div class="d-flex" style="align-items: center">
-        <a href="#" style="padding-right: 20px" id="iconLink">
+        <router-link
+          style="padding-right: 20px"
+          id="link"
+          :to="{ name: 'CartPage' }"
+        >
           <i class="fa-solid fa-cart-shopping fa-xl" title="Cart"></i>
-        </a>
+        </router-link>
         <a
           id="logIn"
           href="#"
