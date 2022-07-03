@@ -24,11 +24,11 @@
         >
           <i class="fa-solid fa-cart-shopping fa-xl" title="Cart"></i>
         </router-link>
-        <a
+        <router-link
+          :to="{ name: 'Login' }"
           id="logIn"
-          href="#"
           style="font-size: 20px; color: darkolivegreen; padding-right: 10px"
-          ><b>Log in</b></a
+          ><b>Log in</b></router-link
         >
       </div>
     </div>

@@ -32,5 +32,10 @@ Rails.application.routes.draw do
         resource :discounts, controller: "discounts", only: [:update]
       end
     end
+    namespace :users do
+      namespace :v1 do
+        resource :users, controller: "users", only: [:create]
+      end
+    end
   end
 end
