@@ -9,6 +9,10 @@
       <div class="field mb-3">
         <label for="email">Email</label><br />
         <input v-model="obj.user.email" type="text" name="email" id="input" />
+        <div style="color: #ef233c" v-if="v$.obj.user.email.$error">
+          <i class="fa-solid fa-triangle-exclamation"></i>
+          {{ v$.obj.user.email.$errors[0].$message }}
+        </div>
       </div>
 
       <div class="field mb-3">
@@ -21,6 +25,10 @@
           name="password"
           id="input"
         />
+        <div style="color: #ef233c" v-if="v$.obj.user.password.$error">
+          <i class="fa-solid fa-triangle-exclamation"></i>
+          {{ v$.obj.user.password.$errors[0].$message }}
+        </div>
       </div>
 
       <div class="field mb-3">
@@ -31,6 +39,13 @@
           name="password_confirmation"
           id="input"
         />
+        <div
+          style="color: #ef233c"
+          v-if="v$.obj.user.password_confirmation.$error"
+        >
+          <i class="fa-solid fa-triangle-exclamation"></i>
+          {{ v$.obj.user.password_confirmation.$errors[0].$message }}
+        </div>
       </div>
 
       <div class="d-flex" style="justify-content: space-evenly">
@@ -46,9 +61,16 @@
 
 <script>
 import axios from "axios";
+import useValidate from "@vuelidate/core";
+import { required, minLength, email } from "@vuelidate/validators";
 
 export default {
   name: "SignUp",
+  setup() {
+    return {
+      v$: useValidate(),
+    };
+  },
   data() {
     return {
       obj: {
@@ -60,17 +82,34 @@ export default {
       },
     };
   },
+  validations() {
+    return {
+      obj: {
+        user: {
+          email: { required, email },
+          password: { required, minLength: minLength(6) },
+          password_confirmation: { required, minLength: minLength(6) },
+        },
+      },
+    };
+  },
   methods: {
     async submitForm() {
-      const res = await axios.post(
-        "http://localhost:3000/apis/users/v1/users",
-        this.obj
-      );
+      const isFormCorrect = await this.v$.$validate();
 
-      if (res.status === 200) {
-        this.$swal("User created successfully !").then(() => {
-          this.$router.replace({ name: "Home" });
-        });
+      if (!isFormCorrect) {
+        return;
+      } else {
+        const res = await axios.post(
+          "http://localhost:3000/apis/users/v1/registrations",
+          this.obj
+        );
+
+        if (res.status === 200) {
+          this.$swal("User created successfully !").then(() => {
+            this.$router.replace({ name: "Login" });
+          });
+        }
       }
     },
   },
@@ -124,5 +163,26 @@ label {
 
 #input:focus {
   border-color: darkolivegreen;
+}
+
+i {
+  color: black;
+}
+i:hover {
+  color: darkolivegreen;
+}
+.fa-boxes-packing {
+  margin: 0 0 5px 260px;
+}
+.fa-boxes-packing:hover {
+  color: darkolivegreen;
+  transform: scale(1.1);
+}
+.fa-triangle-exclamation {
+  color: #ffc300;
+}
+.fa-triangle-exclamation:hover {
+  color: #ffc300;
+  transform: scale(1.04);
 }
 </style>

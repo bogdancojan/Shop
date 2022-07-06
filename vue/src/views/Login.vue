@@ -8,12 +8,25 @@
 
       <div class="field mb-3">
         <label for="email">Email</label><br />
-        <input type="text" name="email" id="input" />
+        <input v-model="obj.user.email" type="text" name="email" id="input" />
+        <div style="color: #ef233c" v-if="v$.obj.user.email.$error">
+          <i class="fa-solid fa-triangle-exclamation"></i>
+          {{ v$.obj.user.email.$errors[0].$message }}
+        </div>
       </div>
 
       <div class="field mb-3">
         <label for="password">Password </label><br />
-        <input type="password" name="password" id="input" />
+        <input
+          v-model="obj.user.password"
+          type="password"
+          name="password"
+          id="input"
+        />
+        <div style="color: #ef233c" v-if="v$.obj.user.password.$error">
+          <i class="fa-solid fa-triangle-exclamation"></i>
+          {{ v$.obj.user.password.$errors[0].$message }}
+        </div>
       </div>
 
       <div
@@ -24,7 +37,9 @@
           margin-bottom: 10px;
         "
       >
-        <button type="button" class="btn">Log in</button>
+        <button v-on:click="handleSubmit()" type="button" class="btn">
+          Log in
+        </button>
 
         <router-link :to="{ name: 'SignUp' }">
           <button type="button" class="btn">Sign up</button>
@@ -35,8 +50,74 @@
 </template>
 
 <script>
+import axios from "axios";
+import useValidate from "@vuelidate/core";
+import { required, email } from "@vuelidate/validators";
+
 export default {
   name: "Login",
+  setup() {
+    return {
+      v$: useValidate(),
+    };
+  },
+  data() {
+    return {
+      obj: {
+        user: {
+          email: "",
+          password: "",
+        },
+      },
+    };
+  },
+  validations() {
+    return {
+      obj: {
+        user: {
+          email: { required, email },
+          password: { required },
+        },
+      },
+    };
+  },
+  methods: {
+    async handleSubmit() {
+      const isFormCorrect = await this.v$.$validate();
+
+      if (!isFormCorrect) {
+        return;
+      } else {
+        const res = await axios.post(
+          "http://localhost:3000/apis/users/v1/sessions",
+          this.obj
+        );
+
+        if (res.data[0].message) {
+          this.$swal(res.data[0].message);
+        } else {
+          console.log("login success");
+          document.cookie = "id=" + res.data[0].id + ";SameSite=None; Secure";
+          document.cookie =
+            "email=" + res.data[0].email + ";SameSite=None; Secure";
+
+          console.log(
+            document.cookie
+              .split("; ")
+              .find((row) => row.startsWith("id="))
+              ?.split("=")[1]
+          ); // get the value of id from cookies
+
+          console.log(
+            document.cookie
+              .split("; ")
+              .find((row) => row.startsWith("email="))
+              ?.split("=")[1]
+          ); // get the value of email from cookies
+        }
+      }
+    },
+  },
 };
 </script>
 
@@ -82,6 +163,27 @@ label {
 .btn:hover {
   color: whitesmoke;
   background-color: darkolivegreen;
+  transform: scale(1.04);
+}
+
+i {
+  color: black;
+}
+i:hover {
+  color: darkolivegreen;
+}
+.fa-boxes-packing {
+  margin: 0 0 5px 260px;
+}
+.fa-boxes-packing:hover {
+  color: darkolivegreen;
+  transform: scale(1.1);
+}
+.fa-triangle-exclamation {
+  color: #ffc300;
+}
+.fa-triangle-exclamation:hover {
+  color: #ffc300;
   transform: scale(1.04);
 }
 </style>
