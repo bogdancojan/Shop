@@ -83,9 +83,11 @@ export default {
         );
 
         if (res.status == 200) {
-          this.$swal("Product created successfully !").then(() => {
-            this.$router.replace({ name: "Home" });
-          });
+          this.$swal
+            .fire("Yay !", "Product created successfully !", "success")
+            .then(() => {
+              this.$router.replace({ name: "Home" });
+            });
         }
       }
     },

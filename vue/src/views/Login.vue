@@ -82,6 +82,14 @@ export default {
     };
   },
   methods: {
+    setupCookies(data) {
+      document.cookie = "user_id=" + data.user_id + ";SameSite=None; Secure";
+      document.cookie =
+        "user_email=" + data.user_email + ";SameSite=None; Secure";
+      document.cookie =
+        "user_admin=" + data.user_admin + ";SameSite=None; Secure";
+    },
+
     async handleSubmit() {
       const isFormCorrect = await this.v$.$validate();
 
@@ -94,26 +102,14 @@ export default {
         );
 
         if (res.data[0].message) {
-          this.$swal(res.data[0].message);
+          this.$swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: res.data[0].message,
+          });
         } else {
-          console.log("login success");
-          document.cookie = "id=" + res.data[0].id + ";SameSite=None; Secure";
-          document.cookie =
-            "email=" + res.data[0].email + ";SameSite=None; Secure";
-
-          console.log(
-            document.cookie
-              .split("; ")
-              .find((row) => row.startsWith("id="))
-              ?.split("=")[1]
-          ); // get the value of id from cookies
-
-          console.log(
-            document.cookie
-              .split("; ")
-              .find((row) => row.startsWith("email="))
-              ?.split("=")[1]
-          ); // get the value of email from cookies
+          this.setupCookies(res.data[0]);
+          this.$router.go();
         }
       }
     },

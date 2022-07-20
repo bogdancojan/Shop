@@ -106,9 +106,11 @@ export default {
         );
 
         if (res.status === 200) {
-          this.$swal("User created successfully !").then(() => {
-            this.$router.replace({ name: "Login" });
-          });
+          this.$swal
+            .fire("Yay !", "User created successfully !", "success")
+            .then(() => {
+              this.$router.replace({ name: "Login" });
+            });
         }
       }
     },

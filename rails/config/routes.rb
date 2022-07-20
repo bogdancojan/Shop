@@ -34,8 +34,13 @@ Rails.application.routes.draw do
     end
     namespace :users do
       namespace :v1 do
-        resource :registrations, controller: "registrations", only: [:create]
+        resource :registrations, controller: "registrations", only: [:create, :destroy, :update]
         resource :sessions, controller: "sessions", only: [:create]
+      end
+    end
+    namespace :orders do
+      namespace :v1 do
+        resources :orders, only: [:index, :create, :show]
       end
     end
   end

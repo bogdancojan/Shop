@@ -16,6 +16,7 @@
         <div class="col-md-8">
           <div class="card-body" style="text-align: center; padding-top: 59px">
             <i
+              v-if="this.current_user_admin"
               @click="deleteProduct"
               id="deleteIcon"
               class="fa-solid fa-delete-left fa-lg"
@@ -110,6 +111,7 @@ export default {
   data() {
     return {
       quantity: 1,
+      current_user_admin: false,
     };
   },
   methods: {
@@ -118,7 +120,11 @@ export default {
         "http://localhost:3000/apis/products/v1/products/" + this.product.id
       );
       if (res.status == 200) {
-        this.$router.replace({ name: "Home" });
+        this.$swal
+          .fire("Yay !", "Product deleted successfully !", "success")
+          .then(() => {
+            this.$router.replace({ name: "Home" });
+          });
       }
     },
 
@@ -138,6 +144,18 @@ export default {
         notification.show();
       }
     },
+
+    authenticatedUserAdmin() {
+      return document.cookie
+        .split("; ")
+        .find((row) => row.startsWith("user_admin="))
+        ?.split("=")[1];
+    },
+  },
+  async created() {
+    if ((await this.authenticatedUserAdmin()) === "true") {
+      this.current_user_admin = true;
+    }
   },
 };
 </script>

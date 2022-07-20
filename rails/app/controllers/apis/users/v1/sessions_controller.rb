@@ -23,8 +23,9 @@ class Apis::Users::V1::SessionsController < ApplicationController
 
   def get_formated_user(user)
     formatted_user = {
-      id: user.id,
-      email: user.email
+      user_id: user.id,
+      user_email: user.email,
+      user_admin: user.admin
     }
   end
 end
