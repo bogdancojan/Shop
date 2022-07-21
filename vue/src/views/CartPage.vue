@@ -97,7 +97,7 @@
             </div>
           </div>
           <button
-            onclick="checkout(<%= session[:cart].to_json %>, <%= total_price %>, <%= @discount %>, <%= final_price %>)"
+            v-on:click="handleCheckout"
             type="button"
             class="btn"
             v-if="discount"
@@ -105,7 +105,7 @@
             Checkout
           </button>
           <button
-            onclick="checkout(<%= session[:cart].to_json %>, <%= total_price %>)"
+            v-on:click="handleCheckout"
             type="button"
             class="btn"
             v-if="!discount"
@@ -146,15 +146,75 @@ export default {
   },
   data() {
     return {
+      current_user_id: 0,
       cart_products: Array,
       total_price: Number,
       discount: false,
       percentage: 0,
       code: "",
-      final_price: Number,
+      final_price: 0,
+      products: {},
     };
   },
   methods: {
+    async handleCheckout() {
+      if (this.current_user_id == null) {
+        this.$swal
+          .fire({
+            icon: "error",
+            title: "Oops...",
+            text: "You need an account to buy the cart !",
+          })
+          .then(() => {
+            this.$router.replace("/login");
+          });
+      } else {
+        if (this.final_price === 0) {
+          this.final_price = this.total_price;
+        }
+
+        for (let i = 0; i < sessionStorage.length; i++) {
+          var key = sessionStorage.key(i);
+          var value = sessionStorage.getItem(key);
+
+          this.products[key] = parseInt(value);
+        }
+
+        let bodyContent = {
+          order: {
+            products: this.products,
+            total_price: this.total_price,
+            discount: this.percentage,
+            final_price: this.final_price,
+          },
+        };
+
+        const res = await axios.post(
+          "http://localhost:3000/apis/orders/v1/orders?user_id=" +
+            this.current_user_id,
+          bodyContent
+        );
+
+        if (res.status === 204) {
+          this.$swal
+            .fire("Yay !", "Order created successfully !", "success")
+            .then(() => {
+              sessionStorage.clear();
+            })
+            .then(() => {
+              this.$router.replace({ name: "Home" });
+            });
+        }
+      }
+    },
+
+    authenticatedUserId() {
+      return document.cookie
+        .split("; ")
+        .find((row) => row.startsWith("user_id="))
+        ?.split("=")[1];
+    },
+
     isSessionStorageEmpty() {
       if (sessionStorage.length === 0) {
         return true;
@@ -189,12 +249,19 @@ export default {
               this.discount = false;
             }
           });
+      } else {
+        this.$swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "This field can't be blank !",
+        });
       }
     },
   },
 
   async created() {
     this.cart_products = await this.fetchCart();
+    this.current_user_id = await this.authenticatedUserId();
 
     var x = 0;
     this.cart_products.forEach(function (product) {

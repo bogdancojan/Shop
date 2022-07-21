@@ -1,3 +1,5 @@
+require 'securerandom'
+
 class Apis::Orders::V1::OrdersController < ApplicationController
   def index
     orders_for = User.find(params[:user_id])
@@ -7,6 +9,19 @@ class Apis::Orders::V1::OrdersController < ApplicationController
       @orders << get_formated_order(order)
     end
     render json: @orders
+  end
+
+  def create
+    user = User.find(params[:user_id])
+    if user
+      order = Order.new(order_params)
+      order.user_id = user.id
+      order.guid = SecureRandom.uuid
+      
+      if order.save
+        OrderMailer.with(order: order).order_placed_email.deliver_later
+      end
+    end
   end
 
   def show
@@ -31,6 +46,10 @@ class Apis::Orders::V1::OrdersController < ApplicationController
   end
 
   private
+  def order_params
+    params.require(:order).permit!
+  end
+
   def get_formated_product(product, quantity)
     formatted_product = {
       name: product.name,

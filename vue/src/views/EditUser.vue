@@ -148,6 +148,8 @@ export default {
       document.cookie = "user_id=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
       document.cookie = "user_email=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
       document.cookie = "user_admin=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
+
+      return true;
     },
 
     async deleteUser() {
@@ -156,11 +158,11 @@ export default {
         { data: { user: { email: this.current_user_email } } }
       );
       if (res.status === 200) {
-        this.destroyCookies();
-
-        this.$swal.fire("Yay !", res.data[0].message, "success").then(() => {
-          this.$router.go();
-        });
+        if (this.destroyCookies()) {
+          this.$swal.fire("Yay !", res.data[0].message, "success").then(() => {
+            this.$router.go();
+          });
+        }
       }
     },
   },

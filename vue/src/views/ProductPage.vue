@@ -133,7 +133,7 @@ export default {
         document.getElementById("notification")
       );
 
-      sessionStorage.setItem(this.product.barcode, this.quantity);
+      sessionStorage.setItem(this.product.barcode, parseInt(this.quantity));
 
       const res = await axios.post(
         "http://localhost:3000/apis/cart/v1/cart",

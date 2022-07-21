@@ -104,11 +104,14 @@ export default {
       document.cookie = "user_id=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
       document.cookie = "user_email=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
       document.cookie = "user_admin=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
+
+      return true;
     },
 
     handleLogout() {
-      this.destroyCookies();
-      this.$router.go();
+      if (this.destroyCookies()) {
+        this.$router.go();
+      }
     },
   },
   async created() {

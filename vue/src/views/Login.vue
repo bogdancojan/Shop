@@ -88,6 +88,8 @@ export default {
         "user_email=" + data.user_email + ";SameSite=None; Secure";
       document.cookie =
         "user_admin=" + data.user_admin + ";SameSite=None; Secure";
+
+      return true;
     },
 
     async handleSubmit() {
@@ -108,8 +110,9 @@ export default {
             text: res.data[0].message,
           });
         } else {
-          this.setupCookies(res.data[0]);
-          this.$router.go();
+          if (this.setupCookies(res.data[0])) {
+            this.$router.go();
+          }
         }
       }
     },
